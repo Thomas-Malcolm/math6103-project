@@ -1,0 +1,43 @@
+\section{Conclusions}
+
+\subsection{What did we achieve?}
+
+\subsection{Future work?}
+
+
+\textbf{Neutron Reflector} \\
+When it comes to nuclear reactors, one goal of your system is to keep the neutron count in equilibrium so as to ensure a sustained 
+reaction that doesn't grow too quickly and lead to super-critical conditions (i.e., an explosion). However, there is a case 
+where you would want this rapid growth in reactions - in the case that you want an explosion! Whereas nuclear reactors have 
+devices designed to regulate neutron energy and count, a nuclear bomb has the opposite goal. However, one of the larger 
+causes for loss of neutrons is that they simply leave the medium you are trying to contain them within. As such, one 
+method often used (which was invented at Los Alomos for the Trinity test) is to have a ``neutron reflector''. This is an 
+outer casing around your bomb which biases the reflection angle when it comes to elastic scattering collision events for neutrons 
+operating within the bounds of the bomb medium. This decreases the loss of neutrons to the environment, and thus maintains 
+density of neutrons for longer, making it easier for a sustained and super-critical fission reaction to develop. One such extension 
+could be then to include support for such a structure into the simulation, and to observe how it affects the critical density of both 
+isotopes. 
+
+\noindent\textbf{Other Fission Reactions} \\
+Currently in the simulation, if a neutron's collision is deemed to produce a fission event, we only support the case that one neutron 
+is ejected from the atom our neutron has collided with. This is referred to as an (n,2n) reaction. However, it is possible 
+for more outputs -- an (n,3n) reaction is possible for example, where two excess neutrons are ejected from the target atom. This would 
+increase the number of neutrons present in the medium, and is more physically accurate. 
+
+\noindent\textbf{More Precise Scattering Variants} \\
+Currently only in-elastic scattering is supported, however in real kinetic dynamics, this is infeasible. When a neutron collides 
+with an atom, it should be affected by the momentum of the atom, instead of randomly picking a direction to head in next. Similarly, 
+for cases of fission events, the resulting neutron should be affected by the 
+
+\noindent\textbf{Neutron Energy Distributions} \\
+In simplifying our model to assume a uniform, averaged neutron energy, we ignore many effects. For example, there is a significant difference 
+between mean free-paths for thermal and fast neutrons, and each have their own purpose. For example, in a nuclear reactor you wish to have 
+more thermal neutrons as they caise fission reactions over longer time scales, whereas fast neutrons will result in more fission events 
+in shorter periods. Some analytic approximations to energy distributions for neutrons within medium are available, and these could be incorporated 
+into our model to more accurately represent the behaviour of neutrons. This would well be accompanied by a more precise implementation 
+of scattering methods as described above, as they are also somewhat dependent on energies of participating neutrons.
+
+\noindent\textbf{Reaction Medium Geometries} \\
+We could also support different geometries. Currently we assume a sphere, which is quite simplistic. Some more academic 
+structures such as a cube would not be difficult to implement and provide some interesting analytics, however some 
+other geometries such as a cylinder could be useful for simulations on reactor cores for example.

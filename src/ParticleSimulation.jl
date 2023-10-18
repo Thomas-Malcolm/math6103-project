@@ -21,13 +21,12 @@ mutable struct Neutron
 end
 
 vec_length(x,y,z) = sqrt(x^2 + y^2 + z^2)
+barn2cm2(b::Float64) = b * 1e-24
 
 # Experiment Parameters
-cycles = 30
-startingNeutrons = 1000
-maxNeutronsSupportable = 1e10
-
-sphereRadius = 17.32 # cm radius
+cycles = 20
+startingNeutrons = 500
+sphereRadius = 2e-10 # cm radius
 
 ## We assume an averaged energy for our neutrons, and the mean paths below 
 ##  correspond to that average energy. We take this average neutron energy 
@@ -39,21 +38,21 @@ sphereRadius = 17.32 # cm radius
 ## σ_f  : fission cross section
 
 # Uranium-235 cross section averages for thermal neutrons (2200 m/s)
-σ_sc =  10
-σ_cp = 99
-σ_f = 583
+σ_sc =  10.0
+σ_cp = 99.0
+σ_f = 583.0
 
 # Plutonium-239 cross section averages for thermal neutrons
-# σ_sc = 8
-# σ_cp = 269
-# σ_f = 748
+# σ_sc = 8.0
+# σ_cp = 269.0
+# σ_f = 748.0
 
 
 # Simulation
 
 ## Initialisation
 N = startingNeutrons # Neutron count
-V = sphereRadius
+V = (4/3) * π * sphereRadius^3 # We're in a sphere
 
 n = N / V           # neutron density
 
@@ -62,15 +61,25 @@ n = N / V           # neutron density
 λ_sc = 1 / (σ_sc * n)
 λ_cp = 1 / (σ_cp * n)
 λ_f  = 1 / (σ_f * n)
-λ_t  = 1 / (σ_t * n) # total mean free path
+λ_t  = 1 / (barn2cm2(σ_t) * n) # total mean free path
 
 neutrons = [Neutron() for _ in 1:startingNeutrons]
 
 ## Data Collection
-
+insideNeutronCounts     = zeros(cycles)
+freeNeutronCounts       = zeros(cycles)
+outsideNeutronCounts    = zeros(cycles)
+absorbedNeutronCounts   = zeros(cycles)
+totalNeutronCounts      = zeros(cycles)
 
 ## Simulation
 for run in 1:cycles
+
+    if run > 1
+        outsideNeutronCounts[run]  = outsideNeutronCounts[run - 1]  # cumulative count
+        absorbedNeutronCounts[run] = absorbedNeutronCounts[run - 1] # cumulative count
+    end
+
     for j in 1:N
         global N
         neutron = neutrons[j]
@@ -98,6 +107,8 @@ for run in 1:cycles
         # Has the neutron escaped our medium?
         if vec_length(neutron.x, neutron.y, neutron.z) > sphereRadius
             neutron.escaped = true
+            outsideNeutronCounts[run] += 1
+            continue
         end
 
         # Random choice as to what collision event occurs
@@ -115,6 +126,7 @@ for run in 1:cycles
             ##  or maybe that there is a delayed fission reaction, but here 
             ##  we ignore that and just assume our neutron disappears
             neutron.absorbed = true
+            absorbedNeutronCounts[run] += 1
         else 
             # Fission collision
             ## We just assume (n,2n) fission here
@@ -124,10 +136,12 @@ for run in 1:cycles
             push!(neutrons, newNeutron)
             N += 1
         end
-
     end
 
-
+    # Data Collection
+    insideNeutronCounts[run] = N - outsideNeutronCounts[run]
+    freeNeutronCounts[run] = N - outsideNeutronCounts[run] - absorbedNeutronCounts[run]
+    totalNeutronCounts[run] = N
 end
 
 
@@ -137,3 +151,16 @@ println("Neutron Count: $(N)")
 println("Outside      : $(length(filter(n -> n.escaped, neutrons)))")
 println("Absorbed     : $(length(filter(n -> n.absorbed, neutrons)))")
 println("Inside       : $(length(filter(n -> !(n.absorbed | n.escaped), neutrons)))")
+
+using Plots
+
+p = plot(1:cycles, totalNeutronCounts, lc=:black, label = "Total")
+plot!(outsideNeutronCounts, lc=:red, label = "Escaped")
+plot!(freeNeutronCounts, lc=:green, label = "Active / Free")
+plot!(absorbedNeutronCounts, lc=:blue, label = "Absorbed")
+
+xlabel!("Cycle")
+ylabel!("Neutron Count")
+title!("U-235 @ R=$(sphereRadius), N0=$(startingNeutrons)")
+
+savefig(p, "results/neutron-count-uranium-medium-sphere-3-long.pdf")

@@ -4,12 +4,49 @@
 
 \subsection{Nuclear Fission}
 
+\subsubsection{Fission Process}
+
+How does nuclear fission work. What is required, what is output.
+
+Factors that affect the reaction
+
 \subsubsection{Neutron Transport}
 
-\subsection{Monte-Carlo Methods}
+Transport equation
 
-\subsection{}
 
-\subsection{Expected Results}
 
-\subsection{Limitations}
+\subsubsection{Collision Kernels}
+
+Neutron cross section
+
+Scattering collision
+
+- In-elastic (changes direction and speed. Assume this doesn't happen for simplicity)
+- Elastic (changes direction but not speed)
+
+Capture collision
+
+Fission collision
+
+\subsection{Transport Simulation}
+
+\subsubsection{Algorithm for simulating}
+
+\subsection{Alternative Approaches}
+
+Talk about fluid dynamics approaches
+
+Monte-Carlo integration of integral
+
+\subsection{Assumptions and Limitations}
+
+Isotropic point source at the centre of the bomb that emits monoenergetic neutrons, with the bomb being a single 
+isotope material with no imperfections. Not so much a spherical cow model as it is a spherical bomb model.
+
+Instead, we make a couple 
+concessions. As it isn't so much the volume of the medium that affects the criticality of our system, but the density of 
+neutrons within that medium, we can hope to approximate the behaviour for regular systems by scaling down our medium to a point 
+of similar density. 
+
+Low neutron count

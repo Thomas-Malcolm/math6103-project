@@ -2,17 +2,40 @@
 
 \section{Introduction}
 
-\textcolor{red}{Something should go here}
-
-
-\subsection{General Topic}
+On July 16, 1945, the scientists working at Los Alomos on the Manhatten Project bared witness to the culmination of years 
+of research and innovation -- the successful execution of the Trinity test. The discovery that bombarding a nucleus with neutrons 
+could result in an atom being split into two smaller atoms, and in the process release a relatively large amount of energy, was 
+a significant moment in the history of mankind. The subsequent realisation that such a process could result in a ``knock-on'' effect, 
+triggering more atoms to be split, releasing even more energy, was the next significant moment. These simple ideas have themselves 
+provided us with so much death, destruction and fear, while simultaneously giving us power and crucial research insights that in the 
+sweet irony that only life can provide, also helps save lives, in fields such as medical imaging.
 
 
 
 \subsection{Project Goals}
 
+This project is about creating a toy box through which to demonstrate the physics the scientists at Los Alomons sought to exploit 
+in their development of the first atomic bomb. Though we should note that, while a nuclear detonation device is the original 
+inspiration for the work they did (and thus this project), the utility of the work is not limited to just that. Through simple 
+tweaking of the code one could use it as a diffusion simulation, for example, to see how neutrons disperse through a water medium. But 
+we digress. 
 
+In this project we will implement a particle simulation for neutrons in a constrained medium, and track the behaviour of this population 
+as they interact with their surroundings. As we will discuss, neutrons are what drive fission reactions in fissile materials - so it 
+stands to reason that to have more neutrons would be to have more chance of having a fission reaction occur, and thus more chance of a, 
+to be scientific, ``large boom''. However, merely having neutrons present is not sufficient for ensuring that a sustained fission reaction occurs 
+- after all, neutrons are always 'present' around us, and yet Uranium doesn't seem to spontaneously combust in nature (or so the German's would have 
+us believe). So the question becomes: what do we need to do to ensure that it does? 
 
-\subsection{Project Components}
+In the spirit of keeping with the Los Alomos designs, we will assume a perfectly spherical geometry for our medium. 
+To simplify our work, we will also assume our ``bomb'' is entirely composed of a single isotope mass of particles, which 
+we will take to either be Uranium-235 or Plutonium-239 (for their fissile nature, which is to say, their willingness 
+to undergo a fission reaction under certain conditions, which we will discuss). For our neutrons, we will assume that 
+our population of particles are travelling with the same energy, and that they are not travelling so fast as to require relativistic 
+adjustments (though this actually plays into our favour due to quantum effects which affect the fissile efficacy of materials 
+when bombarded with neutrons travelling at such high speeds). All these assumptions we for now state without explanation, though 
+will describe later in this report.
 
-\textcolor{red}{banana}
+The results we seek are to see that, adjusted for computational limitations, there is a density (unique to each isotope) 
+which acts as a boundary separating whether a fission reaction will be sustained or not. We will compare our results 
+to expected trends, and discuss what our simulations suggest for the materials.
