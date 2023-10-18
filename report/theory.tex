@@ -2,45 +2,244 @@
 
 \section{Theory}
 
+\subsection{Assumptions}
+
+We will somewhat unconventionally begin by stating what our assumptions are in our model, as we will use this 
+to guide the theory that we develop by making specific reference to them. We will assume:
+\begin{itemize}
+    \item All neutrons have the same kinetic energy
+    \item Our medium will be a single isotope solid that is isotropic in density. This material will 
+    be either Uranium-235 or Plutonium-239
+    \item Our medium's geometry will be perfectly spherical
+    \item All neutrons after moving will have an event occur, which will be either an elastic collision, a capture collision, 
+    or a fission reaction. Notably, we are ignoring the case of in-elastic collisions
+    \item We only consider $(n,2n)$ fission reactions
+    \item There is a single point neutron source at the centre of the sphere which only emits neutrons at the start of the 
+    simulation
+\end{itemize}
+What each of these means we will touch on as we come across them, though for now take them for granted. After introducing 
+the theory for them, we will discuss the implications of making these assumptions.
+
 \subsection{Nuclear Fission}
+
+While nuclear fission can occur without the aid of neutron bombardment (via a process known as ``spontaneous fission''), here 
+we will concern ourselves exclusively with the case of a fissile material being subject to a population of energetic neutrons. 
 
 \subsubsection{Fission Process}
 
-How does nuclear fission work. What is required, what is output.
+When an energised neutron collides with a fissile material such as Uranium-235 or Plutonium-239, 
 
-Factors that affect the reaction
+$$n + \prescript{235}{}U \to \prescript{236}{}U^{*} \to \prescript{134}{}Xe + \prescript{100}{}Sr + 2n$$
+$$n + \prescript{239}{}Pu \to \prescript{240}{}Pu^{*} \to \prescript{134}{}Xe + \prescript{103}{}Zr + 3n$$
+
+The neutron is initially absorbed by the Uranium / Plutonium nucleus, however, both of these elements become 
+unstable with the extra mass. One of the potential outcomes of this instability is that the atom splits into two, 
+and in the process of doing so, extra neutrons are emitted at high energy. Alongside this a large quantity of energy is 
+released, which is what is harnessed in nuclear reactors (and provides that explosive power in a bomb). 
+
+\noindent \textbf{Criticality} \\
+Criticality with respect to nuclear fission reactions describes whether or not a system is self-sustaining in its reaction. There 
+are a couple of associated terms:\\
+\noindent\textit{Super-critical}: This is the state of a self-sustaining fission reaction which continues to grow in strength\\
+\noindent\textit{Sub-critical}: This is a fission reaction which has failed to reach a state of being self-sustaining, and will eventually 
+(if unaided) fizzle out
+Often when dealing with nuclear transport codes, one wishes to answer the question of whether a system will be super- or sub-critical. 
+This is, in large, the question we also seek to answer for some given initial conditions. 
 
 \subsubsection{Neutron Transport}
 
-Transport equation
+We will build up the neutron transport code, describe its components, and then relate them to our project. We will largely 
+follow the derivation given in \cite{mc-methods-neutron-transport-phd}. Where we come across a part of the derivation 
+that relates to an assumption we make in our model, we will have an aside \textit{in italics} to emphasise the 
+discrepancies between the standard neutron transport model and ours.
+
+At the heart of neutron transport is a wish to describe how neutrons are distributed in some system. Let $N(\vec{r}, t)$ 
+describe the density of neutrons in some medium, where $\vec{r} \in \R^3$ describes a position and $t \in \R$ a time. If we let 
+$\vec{v}$ describe neutron velocity, 
+
+To identify the particle density $N(\vec{r}, t)$, we need to take into account the particle velocities, $\vec{v}$, in the medium we're considering. 
+We can describe the distribution of particles by the density function $n(\vec{r}, \vec{v}, t)$. The particle density can then be described
+$$N(\vec{r}, t) = \int n(\vec{r}, \vec{v}, t) \dd^3 v$$
+
+Normally we don't talk about particle velocities when dealing on atomic scales - instead we talk about orientation, and energy. 
+If we let $\vec{\Omega} = \vec{v} / \norm{\vec{v}}$ be the unit vector which describes direction, then we can use the familiar $E = \frac{1}{2}mv^2$ 
+to determine the particle's energy. Note then that the quantity
+$$n(\vec{r}, E, \vec{\Omega}, t) \dd^3 \vec{r} \dd E \dd \vec{\Omega}$$
+describes the number of particles in the volume $\dd^3 \vec{r}$ around the position $\vec{r}$ that have energy $E$ within $\dd E$, 
+moving in direction $\vec{\Omega}$ within a direction change of $\dd \vec{\Omega}$. Note that we can describe the small differentials 
+above in spherical coordinates, as we can reason that 
+\begin{align*}
+    \dd \vec{\Omega} &= \sin \theta \dd \theta \dd \varphi \\
+    \dd^3 \vec{v} &= v^2 \dd v \sin \theta \dd \theta \dd \varphi \\
+    \dd E &= mv \dd v
+\end{align*}
+If we take the energy version of our density function and make substitutions for above, we then get the relation
+$$n(\vec{r}, E, \vec{\Omega}, t) = \frac{v}{m} n(\vec{r}, \vec{v}, t)$$
+This relation will come in handy in a minute. \textit{Note here that this is a function of energy and angle. Recall from our 
+model's assumptions that we specified our neutrons will be monoenergetic, and that we have an isotropic source. Thus, here, 
+our value for $E$ won't be a variable, and similarly our direction vector will be distributed in an expected manner}.
+
+Stepping aside, we'll consider what can affect the number of neutrons we have in our medium. The most obvious one is that there 
+is some source of neutrons - we'll call this rate $q(\vec{r}, \vec{v}, t)$ (\textit{Recall we said we're assuming a single source of neutrons, which scatters isotropically, and only emits at the start 
+of the simulation.}). Next, we know our neutrons can collide with the fissile material with 
+some probability - we've already considered the possibility of fission reactions occurring, which is an example of the outcome 
+of such a collision. This will require some expanding on, so for now we can just call this 
+term $\left ( \pdv{n}{t} \right )_\text{coll}$. Then we know that neutron change can be described:
+$$\dv{n(\vec{r}, \vec{v}, t)}{t} = \left ( \pdv{n}{t} \right )_\text{coll} + q(\vec{r}, \vec{v}, t) $$
+where
+\begin{align*}
+    \dv{n}{t} &= \pdv{n}{t} + \pdv{\vec{r}}{t} \pdv{n}{\vec{r}} + \pdv{\vec{v}}{t} \pdv{n}{\vec{v}} \\
+    &= \pdv{n}{t} + \vec{v} \nabla n + \frac{\vec{F}}{m} \pdv{n}{\vec{v}}
+\end{align*}
+and in the last line there we've used the familiar $F = ma = m \pdv{\vec{v}}{t}$. Thus, our neutron transport equation 
+in its current state is:
+$$\pdv{n}{t} + \vec{v} \nabla n + \frac{\vec{F}}{m} \pdv{n}{\vec{v}}= \left ( \pdv{n}{t} \right )_\text{coll} + q(\vec{r}, \vec{v}, t) $$
+Note that the term $\frac{\vec{F}}{m} \pdv{n}{\vec{v}}$ is most often ignored when it comes to neutron transport as its effects are negligible.
+So that slight simplification gives us:
+$$\pdv{n}{t} + \vec{v} \nabla n = \left ( \pdv{n}{t} \right )_\text{coll} + q(\vec{r}, \vec{v}, t) $$
+Where equality is taken in the physicist's sense. The next obvious step is to try and explain how collisions affect the neutron change. To do this, 
+we need to talk about nuclear cross sections and collision kernels.
+
+\noindent \textbf{Cross Sections}\\
+When we talk about nuclear cross sections, we are talking about the number of interactions that occur for a particle in a given ``area''. 
+Think you are driving a car through the streets of your home town. At any given point in time as you travel, there are any number of events 
+happening around you - maybe a pedestrian is crossing the road, or a bird flies past, or maybe you hit another car while looking for 
+things to notice. In some parts of town, say in the main street, it is more likely there will be things going on than if you were on the 
+outskirts of town. Or maybe there is an event on in one area that makes it harder to focus on driving. A crude analogy, but 
+in heart is comparable to what a cross section represents. The cross section, $\Sigma(\vec{r}, \vec{v})$, describes the average 
+number of ``interactions'' that will occur for a particle if it is at position $\vec{r}$ (the location in town) travelling 
+at speed $\vec{v}$ (however fast your are hooning). 
+
+The dual to talking about a cross section is to talk about a particles ``mean free path'' instead. This is more intuitive, and 
+effectively describes the average distance a particle would expect to travel before it has an ``event'' occur with another 
+particle (i.e., a collision takes place). 
+
+\textit{Note that one of our assumptions was that, when we come to do our simulation, all neutrons will have an event occur 
+after moving. This is somewhat a lie as an assumption, and somewhat not. In reality we will effectively be drawing a randomly 
+sampled distance travelled (that is informed by the material's nuclear cross section describing mean-free path), and assuming that 
+a neutron has a collision after that distance. Our assumption would more accurately be represented as some form of time independence 
+- whereby in a single pass of our simulation we may process a series of collisions simultaneously, though we would not 
+necessarily expect these to actually occur simultaneously in a real life reaction, because of these varied distances travelled (among 
+other reasons)}
+
+\noindent \textbf{Scattering Probability}\\
+Next, when an event does occur, i.e. a neutron collides with another particle, we need to describe how the two 
+particles react to this. This is done using a ``scattering probability function'', which is an energy distribution function 
+for the particle that is subject to the collision from the neutron. Let, then, $f(\vec{r}, \vec{v'} \to \vec{v})$ describe the 
+probability that the secondary particle will be emitted with velocity $\vec{v}$, after the atom is struck by a neutron with 
+velocity $\vec{v'}$ at position $\vec{r}$. 
+
+\textit{In the neutron code, this distributino will be different for elastic and in-elastic scattering, and is, of course, 
+a distribution. In our model however, we 1. are not considering in-elastic scattering, but 2. are also assuming a simple 
+uniform distribution, as is used in \cite{simulations-neutron-transport} }
+
+\noindent \textbf{Secondary Particle Count}\\
+This one is easy to explain - when a collision event occurs (e.g. a fission reaction), what is the average number of secondary particles 
+emitted by the collision event? Let $c(\vec{r}, \vec{v})$ describe such an average for a causal neutron of velocity $\vec{v}$, where 
+the collision occurs at $\vec{r}$. This would describe, for example, the number of neutrons which come out of a fission reaction, and 
+is what ties the speed of a colliding neutron with the energy going into the reaction. Intuitively we might expect an atom to react 
+to a collision a bit differently if it a neutron is smashed into it as opposed to receiving a small bump (where ``small'' and 
+``smashed into'' are taken to be their more scientific, scale-appropriate counterpart adjectives).
+
+By convention we set this to $1$ for collisions which do not generate any secondary particles, such as absorption.
+
+\textit{We stated in our assumptions that we would only consider $(n,2n)$ fission reactions for simplicity. Thus, this is 
+actually just a piecewise function for us, there it is $2$ if we have a fission reaction, and otherwise is $1$.}
+
+\noindent \textbf{Collision Kernel}\\
+The collision kernel is what ties all the above together. It describes the average number of secondary particles of velocity $\vec{v}$ 
+that are produced for every unit of distance travelled by a neutron with velocity $\vec{v'}$, at position $\vec{r}$. Then, combining 
+what we've just reasoned about above, the collision kernel is given:
+$$\Sigma(\vec{r}, \vec{v'} \to \vec{v}) = \Sigma(\vec{r}, \vec{v'}) c(\vec{r}, \vec{v'}) f(\vec{r}, \vec{v'} \to \vec{v})$$
+
+Perhaps we can use a boxer as an analogy. Imagine you are standing in a boxing ring, but you have many opponents. Let this be a 
+nightmare, and lets say you can't fight back against any punches you receive. How many punches might you expect to receive, 
+as a function of where you are in the ring, and how fast will the teeth fly out of your mouth based on those punches? We might expect 
+that if there are more opponents in the ring with you that you will lose more teeth (i.e., the number of secondary neutrons 
+increases). Similarly, if some of these boxers are good at their job, then maybe the punches they throw will have a lot of energy. 
+One might not wish to be hit by a punch with more energy, but perhaps in the process of contemplating whether it is something 
+you enjoy or not you would notice that your teeth fly out of your mouth faster when you receive harder punches (i.e., 
+neutrons which collide with an atom at higher speed will result in secondary neutrons being ejected at higher speeds). The
+information the collision kernel captures is analogous to the number of teeth that fly from your mouth given a hard hitting 
+punch from one of these ferocious foes, based on where you're standing in the ring. Though one does wonder if it is easier just 
+to read the equation... 
+
+\textit{When we come to our simulation we will essentially skip this as a necessity, and instead emulate the collisions themselves 
+by random choices (the Monte Carlo method creeping in), and can handwave a lot of the complexity that a collision kernel 
+seeks to represent away due to our assumptions of isotropic scattering and monoenergetic neutrons}
+
+\noindent 
+Now that we can describe the behaviour of our particles when a collision occurs, we can describe the collision term. 
+For a neutron with velocity $\vec{v}$, its collision frequency can be described by $\norm{\vec{v}} \Sigma(\vec{r}, \vec{v})$. Thus, for
+a population of neutrons with velocity $\vec{v}$ in a unit volume, the rate at which reactions occur is given by 
+$$\norm{\vec{v}} \Sigma(\vec{r}, \vec{v}) n(\vec{r}, \vec{v}, t)$$
+We are assuming that the particle that collides with the atom is ``lost'' (in reality it isn't lost, but is ejected again 
+for example in the case of a fission reaction), and so for every collision with a particle $v$ the systme will lose $v \Sigma(\vec{r}, \vec{v}) n(\vec{r} \vec{v}, t)$ 
+particles, but the system will gain however many particles come out of the collision event. Thus, the collision term can be summarised:
+\begin{equation*}
+    \left ( \pdv{n}{t} \right )_{\text{coll}} = \overbrace{\int v' \Sigma(\vec{r}, \vec{v'} \to \vec{v}) n(\vec{r}, \vec{v'}, t) \dd^3 v'}^{\text{Neutrons gained from all possible collision events}} - \overbrace{v \Sigma(\vec{r}, \vec{v}) n(\vec{r}, \vec{v}, t)}^{\text{Neutrons which participate in a collision}} 
+\end{equation*}
+Substituting this back into our transport equation:
+\begin{align*}
+    \pdv{n}{t} + \vec{v} \nabla n &= \left ( \pdv{n}{t} \right )_\text{coll} + q(\vec{r}, \vec{v}, t) \\
+    \pdv{n}{t} + \vec{v} \nabla n + v \Sigma(\vec{r}, \vec{v}) n(\vec{r}, \vec{v}, t) &= \int v' \Sigma(\vec{r}, \vec{v'} \to \vec{v}) n(\vec{r}, \vec{v'}, t) \dd^3 v' + q(\vec{r}, \vec{v}, t)
+\end{align*}
+And were done! This is (a) general neutron transport equation. In deriving this we've highlighted a few key points, as in our simulations, 
+we don't actually seek to implement this equation directly. Instead, we implement components that were used to build the equation up. Next we'll discuss 
+what we will simulate, and how our assumptions tie into modifications to the above.
+
+\noindent \textbf{Energy Representations} \\
+Notably, in the above derivation, we've kept everything in terms of velocity. However, as we noted at the start of the derivation, 
+it is possible to instead express those same quantities in terms of a direction vector $\vec{\Omega}$, and particle energy, $E$.
+In that spirit, we can express our functions in terms of these similarly:
+\begin{align*}
+    \Sigma(\vec{r}, \vec{v'} \to \vec{v}) &\iff \Sigma(\vec{r}, E' \to E, \vec{\Omega'} \to \vec{\Omega}) \\
+    f(\vec{r}, \vec{v'} \to \vec{v}) &\iff f(\vec{r}, E' \to E, \vec{\Omega'} \to \vec{\Omega})
+\end{align*}
+
+\subsection{Methodology}
+
+\subsubsection{Our Approach}
+
+\textcolor{red}{TODO: this is the last thing I think. Just describe the code, the calculations for the length and orientation, and submit.}
+Although also maybe explain the table below and how it ties in.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|lll|}
+    \cline{2-4}
+                                        & \multicolumn{3}{l|}{Thermal (Barns)} \\ \hline
+    \multicolumn{1}{|l|}{Material} & \multicolumn{1}{l|}{Scatter} & \multicolumn{1}{l|}{Capture} & Fission \\ \hline
+    \multicolumn{1}{|l|}{Uranium-235}   & 10        & 99          & 583        \\ \cline{1-1}
+    \multicolumn{1}{|l|}{Plutonium-239} & 8         & 269         & 748        \\ \hline
+    \multicolumn{1}{|l|}{}              & \multicolumn{3}{l|}{Fast (Barns)}    \\ \hline
+    \multicolumn{1}{|l|}{Uranium-235}   & 5         & 0.07        & 0.3        \\ \cline{1-1}
+    \multicolumn{1}{|l|}{Plutonium-239} & 5         & 0.05        & 2          \\ \hline
+    \end{tabular}
+    \caption{Averaged cross section data for Uranium-235 and Plutonium-239. Here, a ``thermal'' neutron is taken to be travelling at $2200$m/s, 
+    and the values provides are in Barns ($10^{-24} \text{cm}^2$). This data retrieved from \cite{collision-kernel-data}.}
+\end{table}
 
 
+\subsubsection{Alternative Approaches}
 
-\subsubsection{Collision Kernels}
+\noindent \textbf{Fluid Dynamics} \\
+There are simplified models, such as the one described in \cite{los-alamos-primer}, which are more akin to a fluid dynamics approach. 
+In a fluid dynamics approach, instead of tracking the behaviour of individual particles, you model the population of neutrons as a fluid 
+which moves about within the medium. The behaviour of the neutrons can then be described by balance equations which act as flow in and out 
+of the system. This method has the benefit of being considerably more computationally feasible than a particle simulation, but sacrifices accuracy 
+in its representation of a system -- particularly given the nature of a chain reaction somewhat necessitating the tracking of individual particles due 
+to it being dependent on energy of individual particles and their orientation.
 
-Neutron cross section
+\noindent \textbf{Monte Carlo Integration} \\
+Another method which is keeping in the spirit of working with Monte Carlo related methods, would be to evaluate the given integral directly.
+Doing so would require functions which approximate the required behaviours for a given material (for example, $f(\vec{r}, \vec{v'} \to \vec{v})$), 
+though these approximations are likely not impossible given the abundance of experimental data available (one could also simply use data as a sort of 
+reference table instead of having an analytic function to represent it). If you have a way to functionally describe all components of the equation, then 
+to save ones sanity, instead of attempting to find an antiderivative for that function you could use Monte Carlo integration to evaluate it. 
+Given the inherent dimensionality of the problem and the potential for sensitivity to parameters, it is possible this approach will be quite 
+computationally expensive however, and so perhaps should be done with aid of hardware that surpasses the ability of a ThinkPad T440p.
 
-Scattering collision
-
-- In-elastic (changes direction and speed. Assume this doesn't happen for simplicity)
-- Elastic (changes direction but not speed)
-
-Capture collision
-
-Fission collision
-
-\subsection{Transport Simulation}
-
-\subsubsection{Algorithm for simulating}
-
-\subsection{Alternative Approaches}
-
-Talk about fluid dynamics approaches
-
-Monte-Carlo integration of integral
-
-\subsection{Assumptions and Limitations}
-
+\subsubsection{Limitations of our Model}
 Isotropic point source at the centre of the bomb that emits monoenergetic neutrons, with the bomb being a single 
 isotope material with no imperfections. Not so much a spherical cow model as it is a spherical bomb model.
 
@@ -50,3 +249,5 @@ neutrons within that medium, we can hope to approximate the behaviour for regula
 of similar density. 
 
 Low neutron count
+
+\textcolor{red}{TODO for the above. Can be short.}

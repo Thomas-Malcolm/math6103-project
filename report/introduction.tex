@@ -2,13 +2,16 @@
 
 \section{Introduction}
 
-On July 16, 1945, the scientists working at Los Alomos on the Manhatten Project bared witness to the culmination of years 
+On July 16, 1945, the scientists working at Los Alamos on the Manhatten Project bore witness to the culmination of years 
 of research and innovation -- the successful execution of the Trinity test. The discovery that bombarding a nucleus with neutrons 
-could result in an atom being split into two smaller atoms, and in the process release a relatively large amount of energy, was 
+could result in an atom being split into smaller atoms, and in the process release a substantial amount of energy, was 
 a significant moment in the history of mankind. The subsequent realisation that such a process could result in a ``knock-on'' effect, 
 triggering more atoms to be split, releasing even more energy, was the next significant moment. These simple ideas have themselves 
 provided us with so much death, destruction and fear, while simultaneously giving us power and crucial research insights that in the 
-sweet irony that only life can provide, also helps save lives, in fields such as medical imaging.
+sweet irony that only life can provide, also help save lives, in fields such as medical imaging. One of the many 
+research areas that was borne from the Manhatten Project was neutron transport codes (due to their direct relation 
+to the mechanism by which a fission reaction occurs), and the associated Monte Carlo methods used to numerically solve 
+it.
 
 
 
@@ -27,7 +30,7 @@ to be scientific, ``large boom''. However, merely having neutrons present is not
 - after all, neutrons are always 'present' around us, and yet Uranium doesn't seem to spontaneously combust in nature (or so the German's would have 
 us believe). So the question becomes: what do we need to do to ensure that it does? 
 
-In the spirit of keeping with the Los Alomos designs, we will assume a perfectly spherical geometry for our medium. 
+In the spirit of keeping with the Los Alamos designs, we will assume a perfectly spherical geometry for our medium. 
 To simplify our work, we will also assume our ``bomb'' is entirely composed of a single isotope mass of particles, which 
 we will take to either be Uranium-235 or Plutonium-239 (for their fissile nature, which is to say, their willingness 
 to undergo a fission reaction under certain conditions, which we will discuss). For our neutrons, we will assume that 
@@ -39,3 +42,9 @@ will describe later in this report.
 The results we seek are to see that, adjusted for computational limitations, there is a density (unique to each isotope) 
 which acts as a boundary separating whether a fission reaction will be sustained or not. We will compare our results 
 to expected trends, and discuss what our simulations suggest for the materials.
+
+\subsection{Source Code}
+The code for this project is open sourced on GitHub, along with the source code for this report, and relevant papers / resources. 
+The reader may choose to correlate the findings in this project with the source code for a more in-depth understanding of the 
+simulation. See \cite{project-src-code} for a link to the source. The code for the particle simulation on its own is in ``src/ParticleSimulation.jl'',
+and the code for running an experiment where multiple simulations are run is in \\``src/ParticleSimulationComparisons.jl''.

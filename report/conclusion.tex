@@ -2,6 +2,8 @@
 
 \subsection{What did we achieve?}
 
+\textcolor{red}{TODO: just briefly summarise}
+
 \subsection{Future work?}
 
 
@@ -25,9 +27,11 @@ for more outputs -- an (n,3n) reaction is possible for example, where two excess
 increase the number of neutrons present in the medium, and is more physically accurate. 
 
 \noindent\textbf{More Precise Scattering Variants} \\
-Currently only in-elastic scattering is supported, however in real kinetic dynamics, this is infeasible. When a neutron collides 
-with an atom, it should be affected by the momentum of the atom, instead of randomly picking a direction to head in next. Similarly, 
-for cases of fission events, the resulting neutron should be affected by the 
+Currently only in-elastic scattering is supported, however this is insufficient for a particle simulation that wishes to be 
+more accurate. When a neutron collides 
+with an atom, it should be affected by the momentum of that atom, instead of randomly picking a direction to head in next. Similarly, 
+for cases of fission events, the resulting neutron should be affected by the direction the colliding neutron approached. These will 
+affect where subsequent fission reactions occur in the mass
 
 \noindent\textbf{Neutron Energy Distributions} \\
 In simplifying our model to assume a uniform, averaged neutron energy, we ignore many effects. For example, there is a significant difference 

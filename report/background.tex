@@ -2,30 +2,91 @@
 
 \section{Background}
 
-\subsection{How did nuclear fission research start?}
+\subsection{What is the purpose of neutron transport codes?}
 
-First time atom was split 
+As we alluded to in the introduction, neutrons play a crucial role in engineering problems relating to nuclear energy production 
+and control. Neutrons are the driving force in fission reactions (technical justification for which will be covered in the theory section 
+), and so it is important to understand the dynamics of a population of neutrons within a fissile material. This is where neutron transport comes into play. 
+Neutron transport studies concern the behaviour of neutrons within some medium, highlighting the number of neutrons present, their movement, 
+and their interaction with the medium. 
 
-Los Alomos
+This knowledge isn't solely limited to nuclear fission however, nor is it constrained to weapons development.
+We'll highlight a couple particularly interesting (and relevant) applications for neutron transport codes, though should emphasise 
+that this list is by no means exhaustive.
 
-John von Neumann and Monte-Carlo method. Difficult integrals. Stochastic simulations.
+\noindent\textbf{Nuclear Weapons}\\
+As highlighted in the introduction, the development of nuclear weapons during World War Two was a significant motivating 
+factor for early study of neutron behaviour, and their relation to nuclear chain reactions \cite{los-alamos-primer}. 
+It was only as a result of development at Los Alamos that neutron codes came into the forefront of academia, and their 
+application is seen directly. The most obvious use case for neutron transport codes in nuclear weapons development 
+(and what we seek to observe in this project) is using them to determine the conditions required for a 
+chain reaction to be super-critical - that is, for the reaction to be self-sustaining in a way that grows to consume 
+all available fissile material, otherwise known as an explosion.
 
-\subsection{Where is neutron transport used in modern life?}
+\noindent\textbf{Nuclear Fission Reactors}\\
+The natural lead on question from ``can we exploit the energy released in a fission reaction to build a bomb'', is ``can we exploit 
+the energy released in a fission reaction to power our homes''? A bit more wholesome a question, the answer as we know is 
+of course yes. Neutron transport codes (and more generally readiation transport codes, which are just more abstract 
+particle transport codes) are used in a similar manner to how they are in nuclear weapons development, though with 
+a different aim. Whereas for nuclear weapons we want to see our chain reaction reach super-critical state, we do not 
+want this for our reactors - it would be counterproductive to spend much time building a reactor, only for it 
+to suddenly not exist. Thus we use transport codes here to determine what conditions are required to keep 
+chained fission reactions at a controllable level (i.e., sub-critical), while still being able to harness energy from it.
 
-\textbf{Nuclear Weapons}
+\noindent\textbf{Radiation Shielding}\\
+Being inherently a particle simulation that considers radioactive materials and their interactions with their environment, 
+neutron transport codes see a direct application in providing consult on how best to design reactors to safeguard 
+us from its effects as well. For example, one can show that water is an excellent radiation protection mechanism by running 
+a simulation which describes a region of water surrounding a fissile material that interacts with a population of neutrons. 
+You can measure the (simulated) radiation levels outside the water region. This kind of simulation is more 
+commonly known as a neutron diffusion, and is a simplificatoin of neutron transport.
 
-\textbf{Nuclear Fission Reactors}
+\noindent\textbf{Particle Accelerator Design}\\
+Particle accelerators have been using transport codes to simulate the dynamics of interactions between nuclei 
+and sub-atomic particles \cite{particle-accelerator-neutron-codes}.
 
-\subsection{Existing Work}
+\noindent\textbf{Fusion Reactor Design}\\
+Radiation transport codes are used to 
+determine radiation amounts, and general particle interactions, inside a fusion reactor \cite{fusion-neutron-codes}.
+These help inform design decisions, and provide a way to test components of a reactor without the expensive and time 
+consuming process of constructing one (see for evidence, ITER).
 
-Oppenheimer / Los Alomos
-- nuclear fission tests
-- critical density
+\subsection{What work has been done in the field?}
 
-Von Neumann
-- monte carlo methods
-- stochastic simulations
+Since the 1940s, neutron transport codes have seen wide reaching applications, as we've highlighted above. However this came about only 
+after years of intensive research in both physics and mathematics, and has itself been the generator of new concepts in both fields. 
+Here we'll provide a briefly highlight the outcomes of neutron transport research in the past, and in the modern day.
 
-MCMP
-- closed source
-- commercial
+\noindent\textbf{Historical Work}\\
+We have already covered much of the historical work done and what led to interest being developed in neutron transport codes, and so 
+will not repeat ourselves here. However, we will make note on one other core idea which emerged from the nuclear weapons development 
+at Los Alamos shortly after World War Two, which is the work done by John von Neumann and Stanislaw Ulam in developing 
+Monte Carlo methods. In fact, the work they did was directly borne from a wish to study neutron chain reactions. 
+The term ``Monte Carlo Method'' can be used to describe a broad class of solutions to problems, but in large they all share 
+the characteristic that they depend on some stochastic process for their simulation. In the theory section we will cover specifically 
+what a Monte Carlo Method means to us, and how we will use them, but for now we will just note their significance. The discovery 
+of Monte Carlo methods came at a time where computers were beginning to become both more powerful and available, which 
+helped propell them to academic stardom, as they became the subject of intense research. Since then, much work has been done 
+on developing lead on processes and applying them to various fields, where today the study of Monte Carlo methods can be considered 
+its own sub-field of statistics, with its own class of problems and applications -- and only a memory of its beginnings 
+as a tool for nuclear weapons development \cite{dirk-monte-carlo}.
+
+
+\noindent\textbf{Modern Work}\\
+More modern research largely concerns numerical methods for computing properties around neutron transport for increasingly complex 
+geometries and chemical compositions -- essentially a problem of quantity and efficiency. Somewhat understandably however, 
+much of the work done in this field is either classified or commercial in confidence, which is to say source code for industry 
+standard simulations is next to impossible to find, and even getting access to software for running your own simulations 
+requires permission from the owners and a large sum of money. Nevertheless, one such well respected code is the ``Monte Carlo N-Particle 
+Transport Code'' (MCNP). It is capable of very general simulations, and is used in simulations 
+for nuclear reactors, among other things. Perhaps expectedly, it is developed by Los Alamos \cite{mcnp-code}. 
+
+Where in this project we simplify our problem considerably to be for a uniform neutron energy, spherical geometry, 
+discretised time neutron particle simulation that is capable of handling only a few thousand particles, the MCMP code is 
+much more robust. It is able to handle neutrons that have a specifies energy distribution, can run the simulation 
+for a prescribed geometry (i.e., is not confined to that of a sphere), and can handle many orders larger than a few thousand 
+neutrons. Additionally, it provides a wealth of diagnostics information and features for simulating scenarios. For example, 
+it is able to handle the existence of neutron shields -- something we propose as an extension to this project in our conclusions. 
+It is also malleable enough to not just be useful for neutron particle simulations, but can also handle electron transport as well. 
+To refrain from fawning over a piece of technology further, it is a highly capable industry standard code for neutron transport, and this project we 
+have completed here could itself be viewed as a toy version of MCNP.

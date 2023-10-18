@@ -1,3 +1,52 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{particle-accelerator-neutron-codes}
+A.V Dementyev and N.M Sobolevsky.
+\newblock shield — universal monte carlo hadron transport code: scope and
+  applications.
+\newblock {\em Radiation Measurements}, 30(5):553--557, 1999.
+
+\bibitem{mc-methods-neutron-transport-phd}
+Jan Dufek.
+\newblock {\em Development of New Monte Carlo Methods in Reactor Physics}.
+\newblock PhD thesis, School of Engineering Sciences, KTH, 2009.
+
+\bibitem{dirk-monte-carlo}
+Dirk Kroese.
+\newblock Monte carlo methods.
+\newblock Technical report, The University of Queensland, 2011.
+
+\bibitem{simulations-neutron-transport}
+Ramadan~M. Kuridan.
+\newblock {\em Computer Simulation of Neutron Transport---The Monte Carlo
+  Method}, pages 171--201.
+\newblock Springer Nature Switzerland, Cham, 2023.
+
+\bibitem{mcnp-code}
+Los Alamos~National Laboratory.
+\newblock The mcnp code.
+\newblock Website at \url{https://mcnp.lanl.gov/}, 2023.
+
+\bibitem{project-src-code}
+Tom Malcolm.
+\newblock Project source code.
+\newblock GitHub via \url{https://github.com/Thomas-Malcolm/math6103-project},
+  2023.
+
+\bibitem{collision-kernel-data}
+NEA.
+\newblock The jeff-3.1.1 nuclear data library.
+\newblock OECD Publishing, 2009.
+
+\bibitem{los-alamos-primer}
+Robert Serber.
+\newblock {\em The Los Alomos Primer}.
+\newblock University of California Press, 1992.
+
+\bibitem{fusion-neutron-codes}
+A.~Valentine, T.~Berry, S.~Bradnam, J.~Hagues, and J.~Hodson.
+\newblock Benchmarking of emergent radiation transport codes for fusion
+  neutronics applications.
+\newblock {\em Fusion Engineering and Design}, 180:113197, 2022.
 
 \end{thebibliography}

@@ -24,9 +24,9 @@ vec_length(x,y,z) = sqrt(x^2 + y^2 + z^2)
 barn2cm2(b::Float64) = b * 1e-24
 
 # Experiment Parameters
-cycles = 20
+cycles = 15
 startingNeutrons = 500
-sphereRadius = 2e-10 # cm radius
+sphereRadius = 3e-10 # cm radius
 
 ## We assume an averaged energy for our neutrons, and the mean paths below 
 ##  correspond to that average energy. We take this average neutron energy 
@@ -38,14 +38,14 @@ sphereRadius = 2e-10 # cm radius
 ## σ_f  : fission cross section
 
 # Uranium-235 cross section averages for thermal neutrons (2200 m/s)
-σ_sc =  10.0
-σ_cp = 99.0
-σ_f = 583.0
+# σ_sc =  10.0
+# σ_cp = 99.0
+# σ_f = 583.0
 
 # Plutonium-239 cross section averages for thermal neutrons
-# σ_sc = 8.0
-# σ_cp = 269.0
-# σ_f = 748.0
+σ_sc = 8.0
+σ_cp = 269.0
+σ_f = 748.0
 
 
 # Simulation
@@ -161,6 +161,6 @@ plot!(absorbedNeutronCounts, lc=:blue, label = "Absorbed")
 
 xlabel!("Cycle")
 ylabel!("Neutron Count")
-title!("U-235 @ R=$(sphereRadius), N0=$(startingNeutrons)")
+title!("Pu-239 @ R=$(sphereRadius), N0=$(startingNeutrons)")
 
-savefig(p, "results/neutron-count-uranium-medium-sphere-3-long.pdf")
+savefig(p, "results/neutron-count-plutonium-medium-2.pdf")
