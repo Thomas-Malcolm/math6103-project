@@ -199,10 +199,101 @@ In that spirit, we can express our functions in terms of these similarly:
 
 \subsection{Methodology}
 
-\subsubsection{Our Approach}
+In our experiment, we don't wish to directly solve the neutron transport code we've just derived. Instead, we seek to model components of it, 
+and run a Monte Carlo style simulation of it. We are implementing a particle simulation, and so will start by defining the properties 
+of our system. We will have a sphere of varying radius, though will be approximately on the order of $10^{-10}\text{cm}$. The reason for 
+this is explained in the limitations section. 
 
-\textcolor{red}{TODO: this is the last thing I think. Just describe the code, the calculations for the length and orientation, and submit.}
-Although also maybe explain the table below and how it ties in.
+Our simulation process is described below. For every simulation cycle:
+\begin{enumerate}
+    \item For every neutron present in the simulation:
+    \begin{enumerate}
+        \item If this neutron is outside the medium, or it has been absorbed, skip processing it
+        \item Randomly sample this neutron's next travel direction and distance
+        \item Determine its new $(x,y,z)$ position
+        \item Check if the neutron has moved to be outside the medium. If it has, mark it as having escaped and return to (1)
+        \item Randomly choose an event to occur, with weight to optinos given by nuclear cross section data:
+        \begin{itemize}
+            \item Elastic scattering collision. Then continue (neutron will be ``scatterred'' at start of next simulation cycle).
+            \item Capture collision. Mark the neutron as absorbed, and continue.
+            \item Fission collision. Generate a new neutron at this position, and continue.
+        \end{itemize}
+    \end{enumerate}
+    \item Collect data about neutrons present, generated, escaped, and captured
+\end{enumerate}
+
+The reason this can be referred to as a ``Monte Carlo Method'' is seen when we consider the stochastic behaviour that we introduce into 
+the system. When we decide a neutron's next direction to move in, we randomly sample its direction and distance (with experimental 
+data to inform this sampling). Similarly, using data, we determine 
+
+Let $(L, \theta, \phi)$ describe a neutron's next direction to move and the length of that movement, and let $\xi$ 
+denote a uniformly sampled random variable. In our assumptions, we stated 
+that we are assuming isotropic scattering - thus, $\phi = 2\pi \xi$ (this being the off axis scattering angle). 
+For the scattering angle in the plane of collision, however, we cannot simply assume a uniform distribution. 
+Often we take a distribution such that $\mu = \sin \theta = -1 + 2\xi$ \cite{mc-methods-neutron-transport-phd}. Thus, 
+to determine $\theta$, we have $\theta = \asin \left (-1 + 2\xi \right )$. Normally this angle would affect the energy loss, 
+however because we are assuming that all our neutrons have the same energy (and no in-elastic collisions occur), this 
+energy calculation is something we ignore (this is what we refer to when we say we're breaking the laws of 
+thermodynamics in our limitations section). We then know which direction our scattered neutron will travel - next we 
+need to know how far it will move.
+
+As was described in the previous section, the nuclear cross section describes, roughly, how often we would expect a specific
+collision event to occur. Its dual statement is concerns ``mean-free paths'', as we have also described. In our simulation, 
+we can randomly sample this mean-free path value to determine how far our neutron may travel. We will justify the relation we 
+get, however, and draw this conclusion from \cite{simulations-neutron-transport}. First, let $P(L)$ describe the 
+probability that a particle will move $L$ units of distance without making a collision. Then
+$$P(L) = \frac{\text{number of particles that move to depth of L}}{\text{number of trials}} = e^{-\Sigma_t (E) L}$$
+where $\Sigma_t (E)$ describes the total nuclear cross section (the sum of individual cross sections) for a particle of energy $E$.
+Recall again that this is a constant for us, as we assume monoenergetic neutrons. This is a fairly standard probability 
+distribution function, and so then we can describe the probability of a neutron travelling some path up to $L$ long as 
+the CDF of this:
+$$F(L) = 1 - P(L) = 1 - N_0 e^{-\Sigma_t(E) L}$$
+where $N_0$ is the number of trials. If we wish to sample the length $L$ to first collision (as we do in our simulation, note), then 
+letting this be $\xi$ again, we have $F(L) = \xi$, and so:
+\begin{align*}
+    \xi = F(L) &= 1 - e^{-\Sigma_t(D) L} \\
+    1 - \xi &= e^{-\Sigma_t(E) L} \\
+    \iff L &= -\frac{1}{\Sigma_t(E)} \ln(1 - \xi)
+    \shortintertext{But noting that $\xi$ is uniformly distributed, $1 - \xi$ is equivalent to $\xi$, so we can just write}
+    L &= -\frac{1}{\Sigma_t(E)} \ln(\xi)
+\end{align*}
+Then we only hvae to reason about this strange $-\frac{1}{\Sigma_t(E)}$ term we have. We have a relation between mean-free path and 
+collision kernels, hwich states that 
+$$\lambda = (n\sigma)^{-1}$$
+where $\lambda$ is an expected path distance for a specific cross section property, and $\sigma$ describes that cross section 
+(these are referred to as micro cross-sections, and relate directly to their macroscopic counterparts). Here, $n$ is the 
+number of neutrons in the volume being considered (which in our case, is a sphere, so $v = \frac{4}{3}\pi r^3$, and $N$ is 
+the number of neutrons present in our simulation). If we let $\sigma_{sc}, \sigma_{cp}$ and $\sigma_{f}$ describe the cross 
+sections for our elastic scattering collisions, capture collisions, and fission collisions respectively, then we can describe 
+the total cross section as $\Sigma_t = \sigma_{sc} + \sigma_{cp} + \sigma_{f}$. Then we can determine $\lambda_t = (n \cdot \Sigma_t)^{-1}$.
+Putting all this together, we can determine the length of the path our neutron will travel to be:
+$$L = -\lambda_t \ln(\xi)$$
+So to summarise, our randomly sampled (Monte Carlo method!) next (unit vector) direction and distance is given by:
+\begin{align*}
+    L &= -\lambda_t \ln(\xi_1) \\
+    \theta &= \asin(-1 + 2 \cdot \xi_2) \\
+    \phi &= 2 \pi \xi_3
+\end{align*}
+where $\xi_1, \xi_2, \xi_3$ are all uniformly distributed random variables on $[0,1]$. The last thing to do is to determine the actual 
+differential for our neutron. This is a straightforward 3D vector calculation, and is given:
+\begin{align*}
+    \dd x &= L \cdot \cos(\theta) \cdot \cos(\phi) \\
+    \dd y &= L \cdot \cos(\theta) \cdot \sin(\phi) \\
+    \dd z &= L \cdot \sin(\theta) 
+\end{align*}
+
+Our decision process for which collision event occurs is relatively simple. We distribute probabilities of each event occurring 
+according to the proportion of the total cross section they represent, and use a random variable $\xi$ to decide which one 
+occurs.
+
+When we talk about these corss section values, we use Barns units. $1 \text{barn} = 10^{-24}\text{cm}^2$. The relevant cross 
+sections for Uranium-235 and Plutonium-239 are given in table \ref{cross-sections}. The important values 
+for us are that of the thermal neutrons (as we are assuming monenergetic neutrons with energy at that level). 
+To highlight the effect that the energy of a neutron has on its ability to engage in a fission reaction however, 
+we include the same values for neutrons travelling at considerably faster (relativistic) energies for contrast. A 
+quick observation would note that fission reactions are generally, maybe unintuitively, less likely to occur when the bombarding 
+neutrons are too fast -- though the physical explanation for this delves into quantum theory, and is out of scope for this project.
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{l|lll|}
@@ -216,8 +307,9 @@ Although also maybe explain the table below and how it ties in.
     \multicolumn{1}{|l|}{Plutonium-239} & 5         & 0.05        & 2          \\ \hline
     \end{tabular}
     \caption{Averaged cross section data for Uranium-235 and Plutonium-239. Here, a ``thermal'' neutron is taken to be travelling at $2200$m/s, 
-    and the values provides are in Barns ($10^{-24} \text{cm}^2$). This data retrieved from \cite{collision-kernel-data}.}
-\end{table}
+    and the values provides are in Barns ($10^{-24} \text{cm}^2$). This data retrieved from the JEFF nuclear data repository \cite{collision-kernel-data}.}
+    \label{cross-sections}
+\end{table}\newpage
 
 
 \subsubsection{Alternative Approaches}
@@ -240,14 +332,30 @@ Given the inherent dimensionality of the problem and the potential for sensitivi
 computationally expensive however, and so perhaps should be done with aid of hardware that surpasses the ability of a ThinkPad T440p.
 
 \subsubsection{Limitations of our Model}
-Isotropic point source at the centre of the bomb that emits monoenergetic neutrons, with the bomb being a single 
-isotope material with no imperfections. Not so much a spherical cow model as it is a spherical bomb model.
 
-Instead, we make a couple 
-concessions. As it isn't so much the volume of the medium that affects the criticality of our system, but the density of 
-neutrons within that medium, we can hope to approximate the behaviour for regular systems by scaling down our medium to a point 
-of similar density. 
+We might note that, in building our model, we've made a great deal many assumptions about the properties of our system. 
+This would be an astute observation, and in fact we should make no claim to precision in our model whatsoever. Instead of 
+determining a precise value for critical density, or reliably measuring properties surrounding the situations we've constructed, 
+we instead set the goal of merely observing the trends we would expect to find in such a system. What we have is not so much 
+a spherical cow model of a bomb, as it is a cow-shaped model of a bomb.
 
-Low neutron count
+Why do we place such a restriction on ourselves? This is because the assumptions we make limit our model considerably. 
+For example, our assumption that all neutrons in the medium have the same kinetic energy takes away from the accuracy of our model, 
+in that the system breaks the laws of thermodynamics -- our collisions result in no energy lost (in way 
+of a neutron being slowed), but themselves create energy (a new neutron with the same energy can be produced). 
 
-\textcolor{red}{TODO for the above. Can be short.}
+Similarly our assumption that there is not an external source of neutrons could be considered an inaccuracy. It is 
+possible to construct your aparatus so as to limit the presence of external neutrons past what we inject into our experiment, 
+however it is foolish to assume one could entirely rid a system of external influence -- this is especially significant for our 
+simulation when you consider the scale we've limited ourselves to (a note on which is below).
+
+We would be remiss to not note the computational restriction we face as well. Assume that we could rid ourselves of 
+the above assumptions and have a perfectly physical model of the physics of our system. Then even then, we could not trust 
+our results, as to do so would require the simulation of a number of neutrons on order far greater than what my laptop is 
+capable of handling -- at the point you wish to run a simulation like that, you should be asking for super computer time. As 
+such, we have a significantly reduced quantity of neutrons present in our system. We somewhat account for this by scaling our 
+system to accommodate for this, in that instead of dealing with a bomb at a regular diameter such as the $17.32\text{cm}$ radius 
+Los Alamos Trinity test, we reduce the scale of our system to be physically infeasible itself as well.
+
+In short, our model should be considered extremely unphysical, and is more of an academic interest than an actual 
+experiment we would seek results from. Nonetheless, it is fun to see a miniature nuclear reaction!

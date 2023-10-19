@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2022.9.5)  19 OCT 2023 01:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2022.9.5)  19 OCT 2023 11:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -826,118 +826,87 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 
 
 
-] [8] [9] [10] [11] [12]) [13]
+] [8] [9] [10] [11] [12] [13]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[14] [15]) [16]
 \openout2 = `results.aux'.
 
  (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/results.tex
-<imgs/neutron-count-uranium-large-sphere.pdf, id=103, 602.25pt x 401.5pt>
+<imgs/neutron-count-uranium-large-sphere.pdf, id=124, 602.25pt x 401.5pt>
 File: imgs/neutron-count-uranium-large-sphere.pdf Graphic file (type pdf)
 <use imgs/neutron-count-uranium-large-sphere.pdf>
 Package pdftex.def Info: imgs/neutron-count-uranium-large-sphere.pdf  used on input line 13.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 13--15
- [][] 
- []
-
-<imgs/neutron-count-uranium-medium-sphere-3-long.pdf, id=104, 602.25pt x 401.5pt>
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
+<imgs/neutron-count-uranium-medium-sphere-3-long.pdf, id=125, 602.25pt x 401.5pt>
 File: imgs/neutron-count-uranium-medium-sphere-3-long.pdf Graphic file (type pdf)
 <use imgs/neutron-count-uranium-medium-sphere-3-long.pdf>
 Package pdftex.def Info: imgs/neutron-count-uranium-medium-sphere-3-long.pdf  used on input line 20.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 20--22
- [][] 
- []
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<imgs/neutron-count-uranium-medium-sphere-2.pdf, id=105, 602.25pt x 401.5pt>
-File: imgs/neutron-count-uranium-medium-sphere-2.pdf Graphic file (type pdf)
-<use imgs/neutron-count-uranium-medium-sphere-2.pdf>
-Package pdftex.def Info: imgs/neutron-count-uranium-medium-sphere-2.pdf  used on input line 27.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 27--29
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[14
+[17
 
 
 
  </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-uranium-large-sphere.pdf>]
-<imgs/radius-variation-uranium.pdf, id=117, 602.25pt x 401.5pt>
+<imgs/neutron-count-uranium-medium-sphere-2.pdf, id=135, 602.25pt x 401.5pt>
+File: imgs/neutron-count-uranium-medium-sphere-2.pdf Graphic file (type pdf)
+<use imgs/neutron-count-uranium-medium-sphere-2.pdf>
+Package pdftex.def Info: imgs/neutron-count-uranium-medium-sphere-2.pdf  used on input line 27.
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
+ [18 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-uranium-medium-sphere-3-long.pdf> </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-uranium-medium-sphere-2.pdf>]
+<imgs/radius-variation-uranium.pdf, id=145, 602.25pt x 401.5pt>
 File: imgs/radius-variation-uranium.pdf Graphic file (type pdf)
 <use imgs/radius-variation-uranium.pdf>
 Package pdftex.def Info: imgs/radius-variation-uranium.pdf  used on input line 56.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 56--58
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[15 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-uranium-medium-sphere-3-long.pdf>]
-<imgs/neutron-count-plutonium-large-sphere.pdf, id=125, 602.25pt x 401.5pt>
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
+ [19 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-uranium.pdf>]
+<imgs/neutron-count-plutonium-large-sphere.pdf, id=155, 602.25pt x 401.5pt>
 File: imgs/neutron-count-plutonium-large-sphere.pdf Graphic file (type pdf)
 <use imgs/neutron-count-plutonium-large-sphere.pdf>
 Package pdftex.def Info: imgs/neutron-count-plutonium-large-sphere.pdf  used on input line 80.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 80--82
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<imgs/neutron-count-plutonium-medium.pdf, id=126, 602.25pt x 401.5pt>
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
+<imgs/neutron-count-plutonium-medium.pdf, id=156, 602.25pt x 401.5pt>
 File: imgs/neutron-count-plutonium-medium.pdf Graphic file (type pdf)
 <use imgs/neutron-count-plutonium-medium.pdf>
 Package pdftex.def Info: imgs/neutron-count-plutonium-medium.pdf  used on input line 87.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 87--89
- [][] 
- []
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<imgs/neutron-count-plutonium-medium-2.pdf, id=127, 602.25pt x 401.5pt>
+<imgs/neutron-count-plutonium-medium-2.pdf, id=157, 602.25pt x 401.5pt>
 File: imgs/neutron-count-plutonium-medium-2.pdf Graphic file (type pdf)
 <use imgs/neutron-count-plutonium-medium-2.pdf>
 Package pdftex.def Info: imgs/neutron-count-plutonium-medium-2.pdf  used on input line 94.
-(pdftex.def)             Requested size: 421.57211pt x 281.04808pt.
-
-Overfull \hbox (3.31656pt too wide) in paragraph at lines 94--96
- [][] 
- []
-
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[16 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-uranium-medium-sphere-2.pdf>]) [17 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-uranium.pdf>] [18 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-large-sphere.pdf>] [19 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium.pdf>] [20 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium-2.pdf>]
+[20 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-large-sphere.pdf>] [21 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium.pdf> </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium-2.pdf>]
+<imgs/radius-variation-plutonium.pdf, id=175, 602.25pt x 401.5pt>
+File: imgs/radius-variation-plutonium.pdf Graphic file (type pdf)
+<use imgs/radius-variation-plutonium.pdf>
+Package pdftex.def Info: imgs/radius-variation-plutonium.pdf  used on input line 107.
+(pdftex.def)             Requested size: 331.23851pt x 220.82567pt.
+) [22 </home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-plutonium.pdf>]
 \openout2 = `further_work.aux'.
 
  (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/further_work.tex)
 \openout2 = `conclusion.aux'.
 
- (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/conclusion.tex [21
+ (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/conclusion.tex [23
 
 
 
 
 
 
-]) [22] (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/report.bbl
+]) [24] (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/report.bbl
 
 Class scrartcl Warning: Incompatible usage of \@ssect detected.
 (scrartcl)              You've used the KOMA-Script implementation of \@ssect
@@ -953,7 +922,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-) [23
+) [25
 
 
 ] (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/report.aux (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/introduction.aux) (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/background.aux) (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/theory.aux) (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/results.aux) (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/further_work.aux) (/home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/conclusion.aux))
@@ -961,18 +930,18 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 14820 strings out of 481168
- 253822 string characters out of 5913831
+ 14840 strings out of 481168
+ 254179 string characters out of 5913831
  750017 words of memory out of 5000000
- 30983 multiletter control sequences out of 15000+600000
- 522817 words of font info for 360 fonts, out of 8000000 for 9000
+ 30989 multiletter control sequences out of 15000+600000
+ 524165 words of font info for 364 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  111i,12n,116p,10722b,359s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/tom/.texlive2020/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-ml.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/report.pdf (23 pages, 247006 bytes).
+Output written on /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/report.pdf (25 pages, 281027 bytes).
 PDF statistics:
- 334 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 67 named destinations out of 1000 (max. 500000)
- 87276 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 354 PDF objects out of 1000 (max. 8388607)
+ 279 compressed objects within 3 object streams
+ 76 named destinations out of 1000 (max. 500000)
+ 87273 words of extra memory for PDF output out of 89155 (max. 10000000)
 

@@ -1061,6 +1061,12 @@ INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fourier/futmii.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-mlit.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-ml.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/futri8r.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fourier/futmi.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fourier/futmii.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-mlit.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-ml.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/futr8r.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/futri8r.tfm
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/results.tex
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/results.tex
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/results.tex
@@ -1110,6 +1116,11 @@ INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/m
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium-2.pdf
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium-2.pdf
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/neutron-count-plutonium-medium-2.pdf
+INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-plutonium.pdf
+INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-plutonium.pdf
+INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-plutonium.pdf
+INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-plutonium.pdf
+INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/imgs/radius-variation-plutonium.pdf
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/further_work.tex
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/further_work.tex
 INPUT /home/tom/documents/uni/honours/s2/math6103-scientific-modelling/project/math6103-project/report/further_work.tex

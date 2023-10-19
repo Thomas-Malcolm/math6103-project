@@ -10,24 +10,24 @@ about the behaviour of the simulation output, and comment on whether it is align
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/neutron-count-uranium-large-sphere.pdf}
+    \includegraphics[scale=0.55]{imgs/neutron-count-uranium-large-sphere.pdf}
     \caption{A ``large'' sphere with radius $10^{-9}$cm, and a starting population of $500$ neutrons, run for 15 simulation 
     cycles.}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/neutron-count-uranium-medium-sphere-3-long.pdf}
+    \includegraphics[scale=0.55]{imgs/neutron-count-uranium-medium-sphere-3-long.pdf}
     \caption{A ``medium'' sphere with radius $2 \cdot 10^{-10}$cm, and a starting population of $500$ neutrons, run for 20 simulation 
     cycles.}
-\end{figure}
+\end{figure}\newpage
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/neutron-count-uranium-medium-sphere-2.pdf}
+    \includegraphics[scale=0.55]{imgs/neutron-count-uranium-medium-sphere-2.pdf}
     \caption{Another ``medium'' sphere with radius $3 \cdot 10^{-10}$cm, and a starting population of $500$ neutrons, run for 15 simulation 
     cycles.}
-\end{figure}
+\end{figure}\newpage
 
 \subsubsection{Critical Density Analysis}
 
@@ -53,13 +53,13 @@ We can see the relationship between radius of the sphere and the neutron populat
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/radius-variation-uranium.pdf}
+    \includegraphics[scale=0.55]{imgs/radius-variation-uranium.pdf}
     \caption{Neutrons present in a mass of Uranium condensed into sphere of given radius (i.e. density is leftwards increasing in 
     the graph).}
     \label{uranium-total}
 \end{figure}
 
-We can clearly identify the trend we expect to see here. There is a point (around $3 \cdot 10^{-10} \text{cm}$) for which 
+There is a point (around $3 \cdot 10^{-10} \text{cm}$) for which 
 a sphere of greater radius will not result in a burn up situation - i.e., the number of neutrons either remains the same or 
 decreases such that the reaction fizzles out. For spheres with a radius smaller than this, however, we see an exponential rise in the amount 
 of neutrons as radius decreases. This is consistent with behaviour expected from super-critical systems, that is to say, 
@@ -77,24 +77,24 @@ the origin, and as distances decrease in size these values become smaller, until
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/neutron-count-plutonium-large-sphere.pdf}
+    \includegraphics[scale=0.55]{imgs/neutron-count-plutonium-large-sphere.pdf}
     \caption{A ``large'' sphere with radius $10^{-9}$cm, and a starting population of $500$ neutrons, run for 15 simulation 
     cycles.}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/neutron-count-plutonium-medium.pdf}
+    \includegraphics[scale=0.55]{imgs/neutron-count-plutonium-medium.pdf}
     \caption{A ``medium'' sphere with radius $2 \cdot 10^{-10}$cm, and a starting population of $500$ neutrons, run for 20 simulation 
     cycles.}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{imgs/neutron-count-plutonium-medium-2.pdf}
+    \includegraphics[scale=0.55]{imgs/neutron-count-plutonium-medium-2.pdf}
     \caption{Another ``medium'' sphere with radius $3 \cdot 10^{-10}$cm, and a starting population of $500$ neutrons, run for 15 simulation 
     cycles.}
-\end{figure}
+\end{figure}\newpage
 
 \subsubsection{Critical Density Analysis}
 
@@ -102,8 +102,13 @@ We largely include Plutonium in our simulations for two reasons: 1. because the 
 it seemed only fitting to include a Plutonium simulation given the origins of the work in this; and 2. so we have something to compare the 
 Uranium simulations to. 
 
-\textcolor{red}{TODO: generate the radius graph but for Plutonium as well, then copy paste in here. Shouldn't need to change any text, just 
-generate the graph}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.55]{imgs/radius-variation-plutonium.pdf}
+    \caption{Neutrons present in a mass of Uranium condensed into sphere of given radius (i.e. density is leftwards increasing in 
+    the graph).}
+    \label{plutonium-total}
+\end{figure}
 
 When it comes to the Plutonium results, we see much the same behaviour as we did for Uranium, and for the same reasons. We only have 
 to note that the orders to which the neutrons grow is somewhat greater for Uranium than for Plutonium. For example, for a sphere 

@@ -28,7 +28,7 @@ barn2cm2(b::Float64) = b * 1e-24
 i = 1
 nsim = 200
 
-rMin = 2e-10
+rMin = 1e-10
 rMax = 1e-9
 
 endNeutronCounts = zeros(nsim)
@@ -53,14 +53,14 @@ for sphereRadius in range(rMin, rMax, length = nsim)
     ## σ_f  : fission cross section
 
     # Uranium-235 cross section averages for thermal neutrons (2200 m/s)
-    σ_sc =  10.0
-    σ_cp = 99.0
-    σ_f = 583.0
+    # σ_sc =  10.0
+    # σ_cp = 99.0
+    # σ_f = 583.0
 
     # Plutonium-239 cross section averages for thermal neutrons
-    # σ_sc = 8.0
-    # σ_cp = 269.0
-    # σ_f = 748.0
+    σ_sc = 8.0
+    σ_cp = 269.0
+    σ_f = 748.0
 
 
     # Simulation
@@ -179,6 +179,6 @@ plot!(x_range, endOutsideCounts, lc=:red, label = "Escaped")
 
 xlabel!("Sphere Radius (cm)")
 ylabel!("Neutron Count")
-title!("U-235 @ N0=500, nSim=$(nsim)")
+title!("Pu-239 @ N0=500, nSim=$(nsim)")
 
-savefig(p, "results/radius-variation-uranium-semi-zoomed.pdf")
+savefig(p, "results/radius-variation-plutonium.pdf")
